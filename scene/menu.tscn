@@ -1,0 +1,232 @@
+[gd_scene load_steps=22 format=3 uid="uid://dgswucp3sshvm"]
+
+[ext_resource type="Script" path="res://scene/menu.gd" id="1_px2vh"]
+[ext_resource type="Script" path="res://scene/BitWorld.gd" id="2_q32jt"]
+[ext_resource type="Script" path="res://scene/Camera2D.gd" id="3_3pacr"]
+[ext_resource type="PackedScene" uid="uid://drq0gcb1svulc" path="res://scene/player/player.tscn" id="4_lu04o"]
+[ext_resource type="Script" path="res://scene/player/menu_player.gd" id="5_0wwtb"]
+[ext_resource type="FontFile" uid="uid://dpnrd7nrjhlgn" path="res://fonts/Roboto-Thin.ttf" id="6_7oiw0"]
+[ext_resource type="AudioStream" uid="uid://dnwc4eh3r50or" path="res://sfx/bgm.wav" id="7_j3xeb"]
+
+[sub_resource type="Gradient" id="Gradient_4cyo1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6x0k5"]
+gradient = SubResource("Gradient_4cyo1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6wf7f"]
+size = Vector2(4289, 1656.31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5ss5"]
+size = Vector2(4289, 1654.34)
+
+[sub_resource type="Gradient" id="Gradient_e62ws"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_covlf"]
+gradient = SubResource("Gradient_e62ws")
+
+[sub_resource type="Animation" id="Animation_j0ore"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.4, 0.4)]
+}
+
+[sub_resource type="Animation" id="Animation_kg0ii"]
+resource_name = "zoom"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.4, 0.4), Vector2(0.5, 0.5), Vector2(0.4, 0.4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bkfqe"]
+_data = {
+"RESET": SubResource("Animation_j0ore"),
+"zoom": SubResource("Animation_kg0ii")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdh3x"]
+size = Vector2(277, 20)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gtwyb"]
+font = ExtResource("6_7oiw0")
+font_size = 150
+
+[sub_resource type="LabelSettings" id="LabelSettings_g33q2"]
+font = ExtResource("6_7oiw0")
+font_size = 55
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6rg1"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtn7i"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_px2vh")
+
+[node name="White" type="StaticBody2D" parent="."]
+script = ExtResource("2_q32jt")
+
+[node name="Sprite2D2" type="Sprite2D" parent="White"]
+self_modulate = Color(0.796078, 0.796078, 0.796078, 1)
+position = Vector2(-223, 1302.5)
+scale = Vector2(50.0391, 2605)
+texture = SubResource("GradientTexture1D_6x0k5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="White" groups=["white"]]
+position = Vector2(-5, 828.156)
+shape = SubResource("RectangleShape2D_6wf7f")
+
+[node name="Black" type="StaticBody2D" parent="."]
+script = ExtResource("2_q32jt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Black" groups=["black"]]
+position = Vector2(-5, -827.172)
+shape = SubResource("RectangleShape2D_o5ss5")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Black"]
+self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
+position = Vector2(-311.501, -1285.66)
+scale = Vector2(51.3242, 2570.69)
+texture = SubResource("GradientTexture1D_covlf")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(0.4, 0.4)
+position_smoothing_enabled = true
+script = ExtResource("3_3pacr")
+player = NodePath("../player")
+arm_offset = Vector2(500, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D"]
+libraries = {
+"": SubResource("AnimationLibrary_bkfqe")
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0.5, 1902)
+shape = SubResource("RectangleShape2D_jdh3x")
+
+[node name="player" parent="." groups=["player"] instance=ExtResource("4_lu04o")]
+position = Vector2(0, -28)
+script = ExtResource("5_0wwtb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -274.5
+offset_top = 56.0
+offset_right = 274.5
+offset_bottom = 174.0
+grow_horizontal = 2
+text = "SLASHY CAT"
+label_settings = SubResource("LabelSettings_gtwyb")
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 27.0
+offset_top = 217.0
+offset_right = 973.0
+offset_bottom = 394.0
+grow_horizontal = 2
+text = "by Kelvin Cipta"
+label_settings = SubResource("LabelSettings_g33q2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -358.5
+offset_top = -200.0
+offset_right = 358.5
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Play" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_7oiw0")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_b6rg1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qtn7i")
+text = "PLAY"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="How" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_7oiw0")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_b6rg1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qtn7i")
+text = "HOW?"
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Quit" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_7oiw0")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_b6rg1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qtn7i")
+text = "QUIT"
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_j3xeb")
+autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/How" to="." method="_on_how_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

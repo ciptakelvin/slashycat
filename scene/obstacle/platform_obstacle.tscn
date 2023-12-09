@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bt2k1h6skel1w"]
+
+[ext_resource type="Script" path="res://scene/obstacle/platform_obstacle.gd" id="1_1sw7p"]
+
+[sub_resource type="Gradient" id="Gradient_yq05o"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.815686, 0, 0.262745, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iso1i"]
+gradient = SubResource("Gradient_yq05o")
+width = 256
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4h8wj"]
+size = Vector2(255, 12)
+
+[sub_resource type="Gradient" id="Gradient_f8oo2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vaii2"]
+gradient = SubResource("Gradient_f8oo2")
+width = 256
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppl06"]
+size = Vector2(255, 32)
+
+[node name="platform_obstacle" type="Node2D"]
+script = ExtResource("1_1sw7p")
+
+[node name="Die" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Die"]
+position = Vector2(0, -6)
+scale = Vector2(1, 0.1875)
+texture = SubResource("GradientTexture2D_iso1i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Die"]
+position = Vector2(-0.5, -6)
+shape = SubResource("RectangleShape2D_4h8wj")
+
+[node name="Safe" type="StaticBody2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="Safe"]
+position = Vector2(0, -16)
+scale = Vector2(1, 0.5)
+texture = SubResource("GradientTexture2D_vaii2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Safe"]
+position = Vector2(-0.5, -16)
+shape = SubResource("RectangleShape2D_ppl06")
+
+[connection signal="body_entered" from="Die" to="." method="_on_die_body_entered"]

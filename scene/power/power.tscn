@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://6gypiry6ctjt"]
+
+[ext_resource type="Script" path="res://scene/power/power.gd" id="1_kn54f"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_hmpc4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdvpx"]
+bg_color = Color(0.133333, 0.654902, 0.847059, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_cxcim"]
+grow_begin = -1.0
+grow_end = -1.0
+thickness = 20
+
+[sub_resource type="Theme" id="Theme_5vjjx"]
+HSlider/icons/grabber = SubResource("ImageTexture_hmpc4")
+HSlider/icons/grabber_disabled = SubResource("ImageTexture_hmpc4")
+HSlider/icons/grabber_highlight = SubResource("ImageTexture_hmpc4")
+HSlider/icons/tick = SubResource("ImageTexture_hmpc4")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_pdvpx")
+HSlider/styles/slider = SubResource("StyleBoxLine_cxcim")
+
+[node name="Power" type="HSlider"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.0
+offset_top = 48.0
+offset_right = 73.0
+offset_bottom = 74.0
+grow_horizontal = 2
+theme = SubResource("Theme_5vjjx")
+editable = false
+scrollable = false
+script = ExtResource("1_kn54f")

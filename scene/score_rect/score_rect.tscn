@@ -1,0 +1,116 @@
+[gd_scene load_steps=16 format=3 uid="uid://ccqk7hedxr8wa"]
+
+[ext_resource type="Script" path="res://scene/score_rect/score_rect.gd" id="1_cce6h"]
+[ext_resource type="AudioStream" uid="uid://c4v1t2eh58r3m" path="res://sfx/coin.ogg" id="2_k16vw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1acx"]
+size = Vector2(64, 56)
+
+[sub_resource type="Gradient" id="Gradient_ca7v4"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b6fts"]
+gradient = SubResource("Gradient_ca7v4")
+
+[sub_resource type="Curve" id="Curve_4yv57"]
+min_value = -6.0
+max_value = 4.0
+_data = [Vector2(0, 4), 0.0, 0.0, 0, 0, Vector2(1, -6), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m3s31"]
+curve = SubResource("Curve_4yv57")
+
+[sub_resource type="Curve" id="Curve_mv3bm"]
+_data = [Vector2(0, 0), 0.0, 2.01021, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hm0bi"]
+curve = SubResource("Curve_mv3bm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sr617"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 400.0
+radial_accel_max = 400.0
+radial_accel_curve = SubResource("CurveTexture_m3s31")
+scale_curve = SubResource("CurveTexture_hm0bi")
+
+[sub_resource type="Gradient" id="Gradient_ql3q0"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oe42m"]
+gradient = SubResource("Gradient_ql3q0")
+
+[sub_resource type="Animation" id="Animation_e6blf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.984375, 0.867188)]
+}
+
+[sub_resource type="Animation" id="Animation_pwxex"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(0.984375, 0.867188), Vector2(0.6, 0.529), Vector2(0.984375, 0.867188)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lnhdx"]
+_data = {
+"RESET": SubResource("Animation_e6blf"),
+"idle": SubResource("Animation_pwxex")
+}
+
+[node name="score_rect" type="Area2D" groups=["point"]]
+script = ExtResource("1_cce6h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p1acx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.807843, 0.611765, 0.266667, 1)
+scale = Vector2(0.984375, 0.867188)
+texture = SubResource("GradientTexture2D_b6fts")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+self_modulate = Color(1, 0.819608, 0.682353, 1)
+z_index = 2
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_sr617")
+texture = SubResource("GradientTexture2D_oe42m")
+one_shot = true
+speed_scale = 3.0
+explosiveness = 0.67
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lnhdx")
+}
+autoplay = "idle"
+
+[node name="coin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_k16vw")

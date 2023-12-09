@@ -1,0 +1,132 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgprix4ywlrnl"]
+
+[ext_resource type="Script" path="res://scene/gameover/gameover.gd" id="1_v7a0q"]
+[ext_resource type="FontFile" uid="uid://dpnrd7nrjhlgn" path="res://fonts/Roboto-Thin.ttf" id="2_q0qw7"]
+[ext_resource type="Texture2D" uid="uid://cky4eygek5rie" path="res://texture/play-pressed.png" id="3_4vnes"]
+[ext_resource type="Texture2D" uid="uid://r2mbtv472jln" path="res://texture/play.png" id="3_fwje4"]
+[ext_resource type="Texture2D" uid="uid://d32fj0fvt6aid" path="res://texture/play-hover.png" id="4_iknu7"]
+
+[node name="gameover" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_v7a0q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.0
+offset_top = -80.0
+offset_right = 155.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.545098)
+
+[node name="Play" type="TextureButton" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -28.5
+offset_top = -33.0
+offset_right = 28.5
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("3_fwje4")
+texture_pressed = ExtResource("3_4vnes")
+texture_hover = ExtResource("4_iknu7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -59.5
+offset_right = -16.0
+offset_bottom = -36.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Highscore"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -59.5
+offset_right = 96.0
+offset_bottom = -36.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Score"
+horizontal_alignment = 1
+
+[node name="highscore" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.5
+offset_top = -38.0
+offset_right = -42.5
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_q0qw7")
+theme_override_font_sizes/font_size = 50
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 42.5
+offset_top = -38.0
+offset_right = 69.5
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_q0qw7")
+theme_override_font_sizes/font_size = 50
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ColorRect/Play" to="." method="_on_play_pressed"]
