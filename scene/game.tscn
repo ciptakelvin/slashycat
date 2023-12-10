@@ -363,8 +363,10 @@ stream = ExtResource("7_8qvwr")
 pitch_scale = 0.9
 
 [node name="gameover" parent="CanvasLayer" instance=ExtResource("10_qp0sx")]
-offset_top = -648.0
-offset_right = 1152.0
+offset_left = -576.0
+offset_top = -972.0
+offset_right = 576.0
+offset_bottom = -324.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/gameover"]
 libraries = {

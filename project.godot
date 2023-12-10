@@ -26,6 +26,10 @@ window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="/home/kelvincipta/Documents/Sarang Games/Gamejam/Garena Gamejam/movie/result.avi"
+
 [input]
 
 debug={
@@ -55,6 +59,5 @@ esc={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/use_debanding=true

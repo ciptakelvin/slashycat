@@ -23,7 +23,7 @@ point_count = 2
 curve = SubResource("Curve_4yv57")
 
 [sub_resource type="Curve" id="Curve_mv3bm"]
-_data = [Vector2(0, 0), 0.0, 2.01021, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.724503), 0.0, 2.01021, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_hm0bi"]
@@ -99,12 +99,13 @@ texture = SubResource("GradientTexture2D_b6fts")
 self_modulate = Color(1, 0.819608, 0.682353, 1)
 z_index = 2
 emitting = false
-amount = 40
+amount = 50
 process_material = SubResource("ParticleProcessMaterial_sr617")
 texture = SubResource("GradientTexture2D_oe42m")
 one_shot = true
 speed_scale = 3.0
 explosiveness = 0.67
+fixed_fps = 60
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

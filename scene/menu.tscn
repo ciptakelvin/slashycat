@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://drq0gcb1svulc" path="res://scene/player/player.tscn" id="4_lu04o"]
 [ext_resource type="Script" path="res://scene/player/menu_player.gd" id="5_0wwtb"]
 [ext_resource type="FontFile" uid="uid://dpnrd7nrjhlgn" path="res://fonts/Roboto-Thin.ttf" id="6_7oiw0"]
-[ext_resource type="AudioStream" uid="uid://dnwc4eh3r50or" path="res://sfx/bgm.wav" id="7_j3xeb"]
+[ext_resource type="AudioStream" uid="uid://clisxx6apqasx" path="res://sfx/bgm3.ogg" id="7_pskga"]
 
 [sub_resource type="Gradient" id="Gradient_4cyo1"]
 offsets = PackedFloat32Array(0)
@@ -224,7 +224,8 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_qtn7i")
 text = "QUIT"
 
 [node name="bgm" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_j3xeb")
+stream = ExtResource("7_pskga")
+volume_db = -10.0
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Play" to="." method="_on_play_pressed"]
